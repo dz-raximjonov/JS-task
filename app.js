@@ -143,3 +143,187 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     updateNavbar()
 });
+
+
+const coursesContainer = document.getElementById('coursesContainer');
+const searchInput = document.querySelector('.search-bar input');
+const clearFiltersBtn = document.getElementById('clearFilters');
+
+const ratingRadios = document.querySelectorAll('input[name="rating"]');
+const categoryCheckboxes = document.querySelectorAll('input[id^="cat"]');
+
+// Faqat Design va Programming
+const courseData = [
+    {
+        title: "Adobe Illustrator Scratch Course",
+        instructor: "Kitani Studio",
+        rating: 4.5,
+        reviews: 1240,
+        price: 24.92,
+        originalPrice: 32.90,
+        category: "design",
+        bestseller: true,
+        discount: true,
+        image: "./assets/card1.png"
+    },
+    {
+        title: "Figma UI/UX Design Advanced",
+        instructor: "Design Pro",
+        rating: 4.8,
+        reviews: 890,
+        price: 29.99,
+        originalPrice: 49.99,
+        category: "design",
+        bestseller: false,
+        discount: true,
+        image: "./assets/card2.png"
+    },
+    {
+        title: "JavaScript Mastery Course",
+        instructor: "CodeMaster",
+        rating: 4.9,
+        reviews: 3200,
+        price: 39.99,
+        originalPrice: 79.99,
+        category: "programming",
+        bestseller: true,
+        discount: false,
+        image: "./assets/card3.png"
+    },
+    {
+        title: "Python for Beginners",
+        instructor: "Tech Academy",
+        rating: 4.3,
+        reviews: 560,
+        price: 19.99,
+        originalPrice: 39.99,
+        category: "programming",
+        bestseller: false,
+        discount: true,
+        image: "./assets/card4.png"
+    },
+    {
+        title: "Digital Marketing 101",
+        instructor: "Marketing Guru",
+        rating: 4.6,
+        reviews: 2100,
+        price: 34.99,
+        originalPrice: 69.99,
+        category: "programming", // ← Programmingga o‘zgartirdim (faqat 2 ta bo‘lsin)
+        bestseller: true,
+        discount: true,
+        image: "./assets/card5.png"
+    },
+    {
+        title: "Business Strategy Masterclass",
+        instructor: "Biz Pro",
+        rating: 4.7,
+        reviews: 1800,
+        price: 49.99,
+        originalPrice: 99.99,
+        category: "design", // ← Designga o‘zgartirdim
+        bestseller: false,
+        discount: true,
+        image: "./assets/card6.png"
+    },
+    {
+        title: "Photography Masterclass",
+        instructor: "Photo Pro",
+        rating: 4.7,
+        reviews: 1500,
+        price: 44.99,
+        originalPrice: 89.99,
+        category: "design", // ← Designga o‘zgartirdim
+        bestseller: false,
+        discount: false,
+        image: "./assets/card7.png"
+    }
+];
+
+// Karta yaratish
+function createCourseCard(course) {
+    const fullStars = Math.floor(course.rating);
+    const halfStar = course.rating % 1 >= 0.5 ? 'half-star' : '';
+    const ratingStars = '★'.repeat(fullStars) + (halfStar ? 'half-star' : '');
+
+    const badgeHTML = `
+        ${course.bestseller ? '<span class="badge best-seller-badge">Best Seller</span>' : ''}
+        ${course.discount ? '<span class="badge discount-badge">20% OFF</span>' : ''}
+    `;
+
+    return `
+        <div class="col-md-3 course-item">
+            <div class="card course-card shadow-sm position-relative overflow-hidden">
+                <div class="badge-wrapper position-absolute top-0 start-0 m-2 d-flex gap-1">
+                    ${badgeHTML}
+                </div>
+                <img src="${course.image}" class="card-img-top" alt="${course.title}"
+                     onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+                <div class="card-body">
+                    <h6 class="mt-2 fw-bold">${course.title}</h6>
+                    <p class="small mb-1 text-success d-flex align-items-center gap-1">
+                        <i class="bi bi-person-fill fs-5 text-muted"></i> ${course.instructor}
+                    </p>
+                    <p class="text-muted small">
+                        <span class="text-warning">${ratingStars}</span> (${course.reviews.toLocaleString()})
+                    </p>
+                    <p class="fw-bold">$${course.price} 
+                        <span class="text-decoration-line-through text-muted">$${course.originalPrice}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function renderCourses(courses) {
+    coursesContainer.innerHTML = courses.map(createCourseCard).join('');
+}
+
+// Filtrlash — faqat Design va Programming
+function filterCourses() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    const selectedRating = document.querySelector('input[name="rating"]:checked');
+    const minRating = selectedRating ? parseFloat(selectedRating.value) : 0;
+
+    const selectedCategories = Array.from(categoryCheckboxes)
+        .filter(cb => cb.checked)
+        .map(cb => {
+            if (cb.id === 'catDesign') return 'design';
+            if (cb.id === 'catProgramming') return 'programming';
+            return null;
+        }).filter(Boolean);
+
+    const filtered = courseData.filter(course => {
+        const matchesSearch = !searchTerm ||
+            course.title.toLowerCase().includes(searchTerm) ||
+            course.instructor.toLowerCase().includes(searchTerm);
+
+        const matchesRating = minRating === 0 || course.rating >= minRating;
+
+        const matchesCategory = selectedCategories.length === 0 ||
+            selectedCategories.includes(course.category);
+
+        return matchesSearch && matchesRating && matchesCategory;
+    });
+
+    renderCourses(filtered);
+}
+
+// Event listenerlar
+searchInput.addEventListener('input', filterCourses);
+ratingRadios.forEach(r => r.addEventListener('change', filterCourses));
+categoryCheckboxes.forEach(cb => cb.addEventListener('change', filterCourses));
+
+// Clear Filters — hech qaysi checked emas
+clearFiltersBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    searchInput.value = '';
+    document.querySelectorAll('input[name="rating"]:checked, input[id^="cat"]:checked')
+        .forEach(i => i.checked = false);
+    filterCourses(); // Barcha 7 ta karta
+});
+
+// Dastlabki yuklash
+renderCourses(courseData);
+filterCourses(); // Hech qanday filter yo‘q → 7 ta karta
