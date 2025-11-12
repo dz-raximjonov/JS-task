@@ -1,6 +1,4 @@
-// ===== script.js (to‘g‘rilangan) =====
 document.addEventListener("DOMContentLoaded", () => {
-    // ELEMENTLAR
     const searchBtn = document.getElementById("searchBtn");
     const heroSection = document.getElementById("heroSection");
     const trendingSection = document.getElementById("trendingSection");
@@ -15,24 +13,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (filterSidebar) filterSidebar.style.display = "none";
     if (rightCard) rightCard.className = "col-lg-12";
 
-    // === QIDIRUV BOSILGANDA ===
     if (searchBtn) {
         searchBtn.addEventListener("click", (e) => {
             e.preventDefault();
 
-            // Yashirish
             if (heroSection) heroSection.style.display = "none";
             if (trendingSection) trendingSection.style.display = "none";
             if (upcomingSection) upcomingSection.style.display = "none";
             if (getSection) getSection.style.display = "none";
             if (courseTop) courseTop.style.display = "none";
 
-            // Ko‘rsatish
             if (coursesSection) coursesSection.style.display = "block";
             if (filterSidebar) filterSidebar.style.display = "block";
             if (rightCard) rightCard.className = "col-lg-9";
 
-            // Footer pastda tursin
             const footer = document.querySelector("footer");
             if (footer) {
                 footer.style.position = "relative";
@@ -118,9 +112,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (valid) {
                 alert("Login muvaffaqiyatli!");
-                localStorage.setItem('isLoggedIn', 'true'); // Haqiqiy login
+                localStorage.setItem('isLoggedIn', 'true');
                 isLoggedIn = true;
-                updateNavbar(); // Navbar yangilansin
+                updateNavbar();
                 loginForm.reset();
                 const loginModal = bootstrap.Modal.getInstance(document.getElementById("loginModal"));
                 if (loginModal) loginModal.hide();
@@ -133,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return re.test(email);
     }
 
-    // Modal yopilganda tozalash
     const loginModalEl = document.getElementById("loginModal");
     if (loginModalEl) {
         loginModalEl.addEventListener("hidden.bs.modal", () => {
@@ -144,15 +137,19 @@ document.addEventListener("DOMContentLoaded", () => {
     updateNavbar()
 });
 
-
 const coursesContainer = document.getElementById('coursesContainer');
 const searchInput = document.querySelector('.search-bar input');
 const clearFiltersBtn = document.getElementById('clearFilters');
 
+// Filter elementlar
 const ratingRadios = document.querySelectorAll('input[name="rating"]');
+const durationCheckboxes = document.querySelectorAll('input[id^="dur"]');
 const categoryCheckboxes = document.querySelectorAll('input[id^="cat"]');
+const softwareCheckboxes = document.querySelectorAll('input[id^="soft"]');
+const levelRadios = document.querySelectorAll('input[name="level"]');
+const languageCheckboxes = document.querySelectorAll('input[id^="lang"]');
 
-// Faqat Design va Programming
+// Kurs ma'lumotlari (to'liq)
 const courseData = [
     {
         title: "Adobe Illustrator Scratch Course",
@@ -161,7 +158,11 @@ const courseData = [
         reviews: 1240,
         price: 24.92,
         originalPrice: 32.90,
+        duration: 4,
         category: "design",
+        software: ["illustrator"],
+        level: "beginner",
+        language: "english",
         bestseller: true,
         discount: true,
         image: "./assets/card1.png"
@@ -173,7 +174,11 @@ const courseData = [
         reviews: 890,
         price: 29.99,
         originalPrice: 49.99,
+        duration: 6,
         category: "design",
+        software: ["figma"],
+        level: "intermediate",
+        language: "english",
         bestseller: false,
         discount: true,
         image: "./assets/card2.png"
@@ -185,7 +190,11 @@ const courseData = [
         reviews: 3200,
         price: 39.99,
         originalPrice: 79.99,
+        duration: 12,
         category: "programming",
+        software: ["javascript"],
+        level: "intermediate",
+        language: "english",
         bestseller: true,
         discount: false,
         image: "./assets/card3.png"
@@ -197,45 +206,61 @@ const courseData = [
         reviews: 560,
         price: 19.99,
         originalPrice: 39.99,
+        duration: 3,
         category: "programming",
+        software: ["python"],
+        level: "beginner",
+        language: "english",
         bestseller: false,
         discount: true,
         image: "./assets/card4.png"
     },
     {
-        title: "Digital Marketing 101",
-        instructor: "Marketing Guru",
-        rating: 4.6,
-        reviews: 2100,
-        price: 34.99,
-        originalPrice: 69.99,
-        category: "programming", // ← Programmingga o‘zgartirdim (faqat 2 ta bo‘lsin)
+        title: "Vue.js Web Framework",
+        instructor: "Kitani Studio",
+        rating: 4.7,
+        reviews: 1200,
+        price: 24.92,
+        originalPrice: 32.90,
+        duration: 8,
+        category: "programming",
+        software: ["vue"],
+        level: "intermediate",
+        language: "english",
         bestseller: true,
         discount: true,
         image: "./assets/card5.png"
     },
     {
-        title: "Business Strategy Masterclass",
-        instructor: "Biz Pro",
-        rating: 4.7,
-        reviews: 1800,
-        price: 49.99,
-        originalPrice: 99.99,
-        category: "design", // ← Designga o‘zgartirdim
-        bestseller: false,
+        title: "React Native Mobile Dev",
+        instructor: "Kitani Studio",
+        rating: 4.6,
+        reviews: 1100,
+        price: 24.92,
+        originalPrice: 32.90,
+        duration: 10,
+        category: "programming",
+        software: ["react"],
+        level: "advanced",
+        language: "english",
+        bestseller: true,
         discount: true,
         image: "./assets/card6.png"
     },
     {
-        title: "Photography Masterclass",
-        instructor: "Photo Pro",
+        title: "Design Fundamentals",
+        instructor: "Kitani Studio",
         rating: 4.7,
-        reviews: 1500,
-        price: 44.99,
-        originalPrice: 89.99,
-        category: "design", // ← Designga o‘zgartirdim
-        bestseller: false,
-        discount: false,
+        reviews: 1200,
+        price: 24.92,
+        originalPrice: 32.90,
+        duration: 5,
+        category: "design",
+        software: ["figma", "illustrator"],
+        level: "beginner",
+        language: "spanish",
+        bestseller: true,
+        discount: true,
         image: "./assets/card7.png"
     }
 ];
@@ -252,14 +277,14 @@ function createCourseCard(course) {
     `;
 
     return `
-        <div class="col-md-3 course-item">
-            <div class="card course-card shadow-sm position-relative overflow-hidden">
+        <div class="col-md-3 course-item mb-4">
+            <div class="card course-card shadow-sm position-relative overflow-hidden h-100">
                 <div class="badge-wrapper position-absolute top-0 start-0 m-2 d-flex gap-1">
                     ${badgeHTML}
                 </div>
-                <img src="${course.image}" class="card-img-top" alt="${course.title}"
+                <img src="${course.image}" class="card-img-top" alt="${course.title}" 
                      onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                     <h6 class="mt-2 fw-bold">${course.title}</h6>
                     <p class="small mb-1 text-success d-flex align-items-center gap-1">
                         <i class="bi bi-person-fill fs-5 text-muted"></i> ${course.instructor}
@@ -267,7 +292,7 @@ function createCourseCard(course) {
                     <p class="text-muted small">
                         <span class="text-warning">${ratingStars}</span> (${course.reviews.toLocaleString()})
                     </p>
-                    <p class="fw-bold">$${course.price} 
+                    <p class="fw-bold mt-auto">$${course.price} 
                         <span class="text-decoration-line-through text-muted">$${course.originalPrice}</span>
                     </p>
                 </div>
@@ -280,19 +305,46 @@ function renderCourses(courses) {
     coursesContainer.innerHTML = courses.map(createCourseCard).join('');
 }
 
-// Filtrlash — faqat Design va Programming
+// Filtrlash
 function filterCourses() {
     const searchTerm = searchInput.value.toLowerCase().trim();
+
+    // Rating
     const selectedRating = document.querySelector('input[name="rating"]:checked');
     const minRating = selectedRating ? parseFloat(selectedRating.value) : 0;
 
-    const selectedCategories = Array.from(categoryCheckboxes)
+    // Duration
+    const selectedDurations = Array.from(durationCheckboxes)
         .filter(cb => cb.checked)
         .map(cb => {
-            if (cb.id === 'catDesign') return 'design';
-            if (cb.id === 'catProgramming') return 'programming';
+            if (cb.id === 'dur0-2') return { min: 0, max: 2 };
+            if (cb.id === 'dur3-5') return { min: 3, max: 5 };
+            if (cb.id === 'dur6-12') return { min: 6, max: 12 };
+            if (cb.id === 'dur12plus') return { min: 13, max: Infinity };
             return null;
         }).filter(Boolean);
+
+    // Categories
+    const selectedCategories = Array.from(categoryCheckboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.id.replace('cat', '').toLowerCase())
+        .filter(Boolean);
+
+    // Software
+    const selectedSoftware = Array.from(softwareCheckboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.id.replace('soft', '').toLowerCase())
+        .filter(Boolean);
+
+    // Level
+    const selectedLevel = document.querySelector('input[name="level"]:checked')?.id.replace('level', '').toLowerCase();
+    const levelFilter = selectedLevel === 'all' ? null : selectedLevel;
+
+    // Language
+    const selectedLanguages = Array.from(languageCheckboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.id.replace('lang', '').toLowerCase())
+        .filter(Boolean);
 
     const filtered = courseData.filter(course => {
         const matchesSearch = !searchTerm ||
@@ -301,10 +353,22 @@ function filterCourses() {
 
         const matchesRating = minRating === 0 || course.rating >= minRating;
 
+        const matchesDuration = selectedDurations.length === 0 ||
+            selectedDurations.some(range => course.duration >= range.min && course.duration <= range.max);
+
         const matchesCategory = selectedCategories.length === 0 ||
             selectedCategories.includes(course.category);
 
-        return matchesSearch && matchesRating && matchesCategory;
+        const matchesSoftware = selectedSoftware.length === 0 ||
+            selectedSoftware.some(s => course.software.includes(s));
+
+        const matchesLevel = !levelFilter || course.level === levelFilter;
+
+        const matchesLanguage = selectedLanguages.length === 0 ||
+            selectedLanguages.includes(course.language);
+
+        return matchesSearch && matchesRating && matchesDuration &&
+            matchesCategory && matchesSoftware && matchesLevel && matchesLanguage;
     });
 
     renderCourses(filtered);
@@ -313,17 +377,28 @@ function filterCourses() {
 // Event listenerlar
 searchInput.addEventListener('input', filterCourses);
 ratingRadios.forEach(r => r.addEventListener('change', filterCourses));
+durationCheckboxes.forEach(cb => cb.addEventListener('change', filterCourses));
 categoryCheckboxes.forEach(cb => cb.addEventListener('change', filterCourses));
+softwareCheckboxes.forEach(cb => cb.addEventListener('change', filterCourses));
+levelRadios.forEach(r => r.addEventListener('change', filterCourses));
+languageCheckboxes.forEach(cb => cb.addEventListener('change', filterCourses));
 
-// Clear Filters — hech qaysi checked emas
+// Clear Filters
 clearFiltersBtn.addEventListener('click', (e) => {
     e.preventDefault();
     searchInput.value = '';
-    document.querySelectorAll('input[name="rating"]:checked, input[id^="cat"]:checked')
+    document.querySelectorAll('input[type="radio"], input[type="checkbox"]')
         .forEach(i => i.checked = false);
-    filterCourses(); // Barcha 7 ta karta
+
+    // Default
+    document.getElementById('dur3-5').checked = true;
+    document.getElementById('catDesign').checked = true;
+    document.getElementById('levelAll').checked = true;
+    document.getElementById('langEnglish').checked = true;
+
+    filterCourses();
 });
 
 // Dastlabki yuklash
 renderCourses(courseData);
-filterCourses(); // Hech qanday filter yo‘q → 7 ta karta
+filterCourses();
