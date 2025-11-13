@@ -577,3 +577,94 @@ footer {
         margin: 10px;
     }
 }
+
+.search-bar {
+    max-width: 500px;
+    width: 100%;
+}
+
+.search-bar .form-control {
+    border-radius: 50px 0 0 50px;
+    padding: 10px 16px;
+}
+
+.search-bar .btn {
+    border-radius: 0 50px 50px 0;
+    border-left: none;
+}
+
+.dropdown-menu {
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: none;
+    min-width: 220px;
+}
+
+.dropdown-item {
+    padding: 8px 20px;
+    font-size: 0.95rem;
+}
+
+.dropdown-item:hover {
+    background: #f8f9fa;
+}
+
+.badge {
+    font-size: 0.65rem;
+}
+
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #eee;
+}
+
+.user-avatar:hover {
+    border-color: #20c997;
+}
+
+.modal-left {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+}
+
+.modal-left::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 0;
+}
+
+.modal-left-content {
+    position: relative;
+    z-index: 1;
+}
+
+.divider {
+    position: relative;
+    text-align: center;
+    color: #888;
+    margin: 1.5rem 0;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #ddd;
+    z-index: -1;
+}
+
+.divider span {
+    background: white;
+    padding: 0 12px;
+}

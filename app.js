@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const filterSidebar = document.getElementById("filter-sidebar");
     const rightCard = document.getElementById("rightCard");
 
-    // Boshlang‘ich holat (filter yashirin)
+
     if (filterSidebar) filterSidebar.style.display = "none";
     if (rightCard) rightCard.className = "col-lg-12";
 
@@ -141,7 +141,7 @@ const coursesContainer = document.getElementById('coursesContainer');
 const searchInput = document.querySelector('.search-bar input');
 const clearFiltersBtn = document.getElementById('clearFilters');
 
-// Filter elementlar
+// Filter 
 const ratingRadios = document.querySelectorAll('input[name="rating"]');
 const durationCheckboxes = document.querySelectorAll('input[id^="dur"]');
 const categoryCheckboxes = document.querySelectorAll('input[id^="cat"]');
@@ -149,7 +149,6 @@ const softwareCheckboxes = document.querySelectorAll('input[id^="soft"]');
 const levelRadios = document.querySelectorAll('input[name="level"]');
 const languageCheckboxes = document.querySelectorAll('input[id^="lang"]');
 
-// Kurs ma'lumotlari (to'liq)
 const courseData = [
     {
         title: "Adobe Illustrator Scratch Course",
@@ -374,7 +373,6 @@ function filterCourses() {
     renderCourses(filtered);
 }
 
-// Event listenerlar
 searchInput.addEventListener('input', filterCourses);
 ratingRadios.forEach(r => r.addEventListener('change', filterCourses));
 durationCheckboxes.forEach(cb => cb.addEventListener('change', filterCourses));
@@ -383,14 +381,12 @@ softwareCheckboxes.forEach(cb => cb.addEventListener('change', filterCourses));
 levelRadios.forEach(r => r.addEventListener('change', filterCourses));
 languageCheckboxes.forEach(cb => cb.addEventListener('change', filterCourses));
 
-// Clear Filters
 clearFiltersBtn.addEventListener('click', (e) => {
     e.preventDefault();
     searchInput.value = '';
     document.querySelectorAll('input[type="radio"], input[type="checkbox"]')
         .forEach(i => i.checked = false);
 
-    // Default
     document.getElementById('dur3-5').checked = true;
     document.getElementById('catDesign').checked = true;
     document.getElementById('levelAll').checked = true;
@@ -399,6 +395,6 @@ clearFiltersBtn.addEventListener('click', (e) => {
     filterCourses();
 });
 
-// Dastlabki yuklash
 renderCourses(courseData);
 filterCourses();
+

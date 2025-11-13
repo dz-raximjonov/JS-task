@@ -12,98 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <link rel="stylesheet" href="style.css" />
-    <style>
-        .search-bar {
-            max-width: 500px;
-            width: 100%;
-        }
 
-        .search-bar .form-control {
-            border-radius: 50px 0 0 50px;
-            padding: 10px 16px;
-        }
-
-        .search-bar .btn {
-            border-radius: 0 50px 50px 0;
-            border-left: none;
-        }
-
-        .dropdown-menu {
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            border: none;
-            min-width: 220px;
-        }
-
-        .dropdown-item {
-            padding: 8px 20px;
-            font-size: 0.95rem;
-        }
-
-        .dropdown-item:hover {
-            background: #f8f9fa;
-        }
-
-        .badge {
-            font-size: 0.65rem;
-        }
-
-        .user-avatar {
-            width: 38px;
-            height: 38px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 2px solid #eee;
-        }
-
-        .user-avatar:hover {
-            border-color: #20c997;
-        }
-
-        .modal-left {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            position: relative;
-        }
-
-        .modal-left::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
-            z-index: 0;
-        }
-
-        .modal-left-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .divider {
-            position: relative;
-            text-align: center;
-            color: #888;
-            margin: 1.5rem 0;
-        }
-
-        .divider::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: #ddd;
-            z-index: -1;
-        }
-
-        .divider span {
-            background: white;
-            padding: 0 12px;
-        }
-    </style>
 </head>
 
 <body>
@@ -147,7 +56,6 @@
             <p>Become professionals and ready to join the world.</p>
         </div>
 
-        <!-- Search inputlar float qiladi -->
         <div class="search-wrapper bg-white p-5 shadow-lg rounded-4 mt-4">
             <div class="row g-3">
                 <div class="col-md-4">
@@ -179,7 +87,6 @@
                         </div>
                         <hr>
 
-                        <!-- Rating -->
                         <div class="mb-4">
                             <h6 class="fw-bold">Rating</h6>
                             <div class="form-check">
@@ -202,7 +109,6 @@
                             </div>
                         </div>
 
-                        <!-- Video Duration -->
                         <div class="mb-4">
                             <h6 class="fw-bold">Video Duration</h6>
                             <div class="form-check">
@@ -223,7 +129,6 @@
                             </div>
                         </div>
 
-                        <!-- Categories -->
                         <div class="mb-4">
                             <h6 class="fw-bold">Categories</h6>
                             <div class="form-check">
@@ -260,7 +165,6 @@
                             </div>
                         </div>
 
-                        <!-- Software -->
                         <div class="mb-4">
                             <h6 class="fw-bold">Software</h6>
                             <div class="form-check">
@@ -281,7 +185,6 @@
                             </div>
                         </div>
 
-                        <!-- Level -->
                         <div class="mb-4">
                             <h6 class="fw-bold">Level</h6>
                             <div class="form-check">
@@ -302,7 +205,6 @@
                             </div>
                         </div>
 
-                        <!-- Language -->
                         <div class="mb-4">
                             <h6 class="fw-bold">Language</h6>
                             <div class="form-check">
@@ -333,7 +235,6 @@
                     </div>
 
                     <div class="row g-4" id="coursesContainer">
-                        <!-- Course Card -->
                         <div class="col-md-3">
                             <div class="card course-card shadow-sm position-relative overflow-hidden">
                                 <div class="badge-wrapper position-absolute top-0 start-0 m-2 d-flex gap-1">
@@ -359,7 +260,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- More cards -->
                         <div class="col-md-3">
                             <div class="card course-card shadow-sm position-relative overflow-hidden">
                                 <div class="badge-wrapper position-absolute top-0 start-0 m-2 d-flex gap-1">
@@ -588,7 +488,6 @@
 
 
             <div class="row g-4">
-                <!-- Course Card -->
                 <div class="col-md-3">
                     <div class="card course-card shadow-sm position-relative overflow-hidden">
                         <div class="badge-wrapper position-absolute top-0 start-0 m-2 d-flex gap-1">
@@ -614,7 +513,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- More cards -->
                 <div class="col-md-3">
                     <div class="card course-card shadow-sm position-relative overflow-hidden">
                         <div class="badge-wrapper position-absolute top-0 start-0 m-2 d-flex gap-1">
@@ -798,6 +696,7 @@
             </div>
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="app.js"></script>
